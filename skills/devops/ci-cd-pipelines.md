@@ -1,0 +1,104 @@
+# CI/CD Pipeline Skills
+
+## Project Reference
+- Repository: [titanic-devops-assessment](https://github.com/marjorieechu/titanic-devops-assessment)
+- Reusable Workflows: [shared-gh-workflows](https://github.com/marjorieechu/shared-gh-workflows)
+
+## Skills Demonstrated
+
+### GitHub Actions
+
+| Skill | Why It Matters |
+|-------|---------------|
+| Reusable workflows | DRY principle - centralized security policies |
+| Parallel job execution | Faster feedback - scans run simultaneously |
+| Job dependencies with `needs` | Ensures correct execution order |
+| GitHub Environments | Separate configs for dev/staging/prod |
+| Manual approval gates | Production safety - human review required |
+
+### Shift-Left Security (Sequential Gates)
+
+| Stage | Tool | Fails If | Why Sequential |
+|-------|------|----------|----------------|
+| 1 | Gitleaks | Secrets found | Stop immediately - no point continuing with leaked creds |
+| 2 | Checkov | IaC misconfigs | Don't build insecure infrastructure |
+| 3 | SonarCloud | Quality gate failed | Don't build code with bugs/vulnerabilities |
+| 4 | Tests | Coverage < 70% | Enforce code coverage standards |
+| 5 | Build | - | Only after all checks pass |
+| 6 | Trivy | CRITICAL/HIGH CVEs | Scan the actual built image |
+
+**Why Sequential (not parallel)?**
+- Each gate must pass before proceeding
+- Fail fast - don't waste compute on doomed builds
+- Clear accountability - know exactly which check failed
+
+### Docker in CI/CD
+
+| Skill | Why It Matters |
+|-------|---------------|
+| Multi-stage builds in CI | Consistent builds across environments |
+| Docker layer caching (`type=gha`) | 50-80% faster builds |
+| GHCR (GitHub Container Registry) | Free, integrated with GitHub Actions |
+| Semantic versioning tags | Track deployments, easy rollbacks |
+
+### Deployment Strategies
+
+| Strategy | Implementation | Why |
+|----------|---------------|-----|
+| Multi-environment | dev → staging → prod | Test changes progressively |
+| Auto-deploy dev/staging | On push to branch | Fast iteration |
+| Manual approval for prod | GitHub Environments | Human verification |
+| Rollback capability | SHA-tagged images | Quick recovery |
+
+### Automated Rollback
+
+```yaml
+# Store current revision before deploy
+CURRENT_REVISION=$(kubectl rollout history deployment/app | tail -2 | head -1)
+
+# Deploy and health check
+kubectl apply -k k8s/overlays/prod
+kubectl rollout status deployment/app --timeout=300s
+
+# If health check fails, rollback
+kubectl rollout undo deployment/app --to-revision=$CURRENT_REVISION
+```
+
+**Why Automated Rollback?**
+- Reduces MTTR (Mean Time To Recovery)
+- No manual intervention needed at 3am
+- Health checks catch issues probes might miss
+
+### SonarCloud Quality Gate
+
+| Condition | Threshold | Why |
+|-----------|-----------|-----|
+| Coverage | >= 70% | Ensure adequate test coverage |
+| Duplicated Lines | <= 3% | Reduce technical debt |
+| Maintainability Rating | A | Keep code maintainable |
+| Reliability Rating | A | No bugs in production |
+| Security Rating | A | No vulnerabilities |
+
+## Key Files
+- `.github/workflows/ci-cd.yml` - Main pipeline
+- `shared-gh-workflows/.github/workflows/` - Reusable security scans
+
+## Secrets Management
+
+| Secret | Source | Never Do |
+|--------|--------|----------|
+| `GITHUB_TOKEN` | Auto-provided | Hardcode tokens |
+| `SONAR_TOKEN` | GitHub Secrets | Commit to repo |
+| `SLACK_WEBHOOK_URL` | GitHub Secrets | Log secrets |
+
+## Commands Learned
+```bash
+# Trigger workflow manually
+gh workflow run ci-cd.yml
+
+# View workflow runs
+gh run list
+
+# View specific run logs
+gh run view <run-id> --log
+```
