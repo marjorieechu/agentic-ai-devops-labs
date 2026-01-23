@@ -90,6 +90,36 @@ backend "s3" {
 | NAT Gateway | Single | Per-AZ |
 | Deletion Protection | No | Yes |
 
+### Separate Pipelines: Infrastructure vs Application
+
+| Pipeline | Trigger | Purpose |
+|----------|---------|---------|
+| **App CI/CD** | Push to main/develop | Build, test, deploy app to K8s |
+| **Infra CI/CD** | Push to `terraform/**` | Provision/update AWS resources |
+
+**Why Separate?**
+- Infrastructure changes less frequently than app code
+- Different permissions needed (AWS vs K8s)
+- Stricter approval gates for infra (destroying resources is dangerous)
+- Different blast radius - infra failure affects everything
+
+**Terraform Pipeline Flow:**
+```
+PR (terraform/** changes)
+    │
+    ▼
+Format + Validate → Checkov Scan → Plan (comments on PR)
+    │
+    ▼ (merge to main)
+Apply Dev (auto) → Apply Staging (approval) → Apply Prod (approval)
+```
+
+**Key Patterns:**
+- Plan on PR, Apply on merge
+- Auto-apply dev, require approval for staging/prod
+- Use OIDC for AWS auth (no static credentials)
+- Save plan artifact, apply exact plan
+
 ## Commands Learned
 
 ```bash
