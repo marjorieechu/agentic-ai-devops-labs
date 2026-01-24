@@ -63,14 +63,24 @@ securityContext:
 ### Rolling Update Strategy
 
 ```yaml
-strategy:
-  type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 1        # Add 1 new pod first
-    maxUnavailable: 0  # Never kill existing pods
+spec:
+  revisionHistoryLimit: 10      # Keep 10 revisions for rollback
+  minReadySeconds: 10           # Wait 10s before marking ready
+  progressDeadlineSeconds: 300  # Fail if not done in 5 min
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Add 1 new pod first
+      maxUnavailable: 0  # Never kill existing pods
 ```
 
-**Result:** Zero-downtime deployments
+| Setting | Purpose |
+|---------|---------|
+| `revisionHistoryLimit` | Keep N revisions for `kubectl rollout undo` |
+| `minReadySeconds` | Wait before marking pod as ready |
+| `progressDeadlineSeconds` | Fail deploy if stuck |
+
+**Result:** Zero-downtime deployments with rollback capability
 
 ### Horizontal Pod Autoscaler
 
@@ -114,6 +124,20 @@ spec:
 - Only allow ingress from ingress controller
 - Only allow egress to database (port 5432)
 
+### CI/CD Rollback Job
+
+**Manual trigger via GitHub Actions:**
+1. Actions → CI/CD Pipeline → Run workflow
+2. Select action: `rollback`
+3. Select environment: `dev/staging/prod`
+4. Optionally specify revision number
+
+**Why CI/CD rollback?**
+- Audit trail (who triggered, when)
+- Slack notifications
+- No kubectl access needed
+- Environment-scoped secrets
+
 ## Commands Learned
 
 ```bash
@@ -127,4 +151,9 @@ helm install titanic-api ./helm/titanic-api
 helm upgrade titanic-api ./helm/titanic-api
 helm rollback titanic-api 1               # Rollback to revision 1
 helm uninstall titanic-api
+
+# Rollback via kubectl
+kubectl rollout history deployment/app -n prod    # View revisions
+kubectl rollout undo deployment/app -n prod       # Rollback to previous
+kubectl rollout undo deployment/app -n prod --to-revision=3  # Specific
 ```
