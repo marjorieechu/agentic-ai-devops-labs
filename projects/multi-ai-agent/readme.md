@@ -1,6 +1,6 @@
 # Multi-AI-Agent
 
-This project explores how more than one agent can collaborate on a task.
+These projects explore how more than one agent can collaborate on a task.
 
 It builds on the single-agent baseline and moves toward orchestration patterns where agents can divide responsibilities, exchange outputs, and complete a workflow together.
 

@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+data/session.db
+__pycache__/
+*.pyc

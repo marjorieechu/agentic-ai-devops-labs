@@ -7,7 +7,7 @@ Monitor what the Agent does through traces using open AI API platform.
 And finally run the agent to see it in action using the runner class.
 
 ## Set up our environment to connect to the openAI API
-To build this no memory single agent Ai, weneed the following
+To build this no memory single agent Ai, we need the following
 Before we can build our first AI agent, we need two things:
 1. The `openai-agents` library installed: this constitutes all tools needed to build the . Tools like memory, guardrail etc.
 2. Your secret OpenAI API key to communicate with the AI models. From openAI API platform we will obtain a secret key which will be stored in a .env file and ensure the file is placed in same location as
