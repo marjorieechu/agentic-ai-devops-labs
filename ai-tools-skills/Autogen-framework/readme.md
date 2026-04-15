@@ -5,7 +5,7 @@ A system that helps you build, coordinate, and manage multiple AI agents without
 Instead of you manually coding:agent communication, message passing, task coordination, memory handling; 
 AutoGen gives you:Agent classes (pre-built agent types), Conversation orchestration, tool integration, Multi-agent workflows.
 
-## Overview of AutoGen converse Agent
+## Overview of AutoGen converse Agent Pattern
 1. Two Agent chat
 2. Sequential agent
 3. Group chat.
@@ -22,6 +22,7 @@ AutoGen is useful when you want to explore agent-to-agent interaction patterns s
 ## Core Concepts
 
 - agents with distinct roles
+- agents with different brains(LLMs)
 - message passing between agents
 - tool and code execution support
 - human-in-the-loop participation when needed
@@ -46,3 +47,8 @@ Good portfolio projects for AutoGen include:
 - coding assistant teams
 - research and review agents
 - incident triage and reporting workflows
+
+## Project Needs
+installing autogen
+google api key
+claude api key
