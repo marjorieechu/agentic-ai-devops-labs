@@ -1,6 +1,14 @@
 # AutoGen
 
-AutoGen is a framework for building multi-agent systems where agents can converse, collaborate, and use tools to solve tasks.
+AutoGen is a framework for building multi-agent systems where agents can converse, collaborate, and use tools to solve tasks. Autogen is an open source framework that simplifies how we build and manage multi-agent systems using LLMs.
+A system that helps you build, coordinate, and manage multiple AI agents without writing everything from scratch.
+Instead of you manually coding:agent communication, message passing, task coordination, memory handling; 
+AutoGen gives you:Agent classes (pre-built agent types), Conversation orchestration, tool integration, Multi-agent workflows.
+
+## Overview of AutoGen converse Agent
+1. Two Agent chat
+2. Sequential agent
+3. Group chat.
 
 ## Why It Matters
 

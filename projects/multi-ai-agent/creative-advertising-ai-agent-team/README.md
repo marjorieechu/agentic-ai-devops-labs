@@ -1,8 +1,6 @@
 # Creative Advertising AI Agent Team
 
-This project scaffolds the module 3 multi-agent exercise from the course materials into a repo-ready Python project.
-
-It turns the notebook flow into a reusable pipeline where four specialized agents collaborate on a creative advertising task:
+This project turns the notebook flow into a reusable pipeline where four specialized agents collaborate on a creative advertising task:
 
 - `Creative_Director` brainstorms 3 to 5 campaign ideas
 - `Strategist` selects the top 2 ideas and explains the reasoning
