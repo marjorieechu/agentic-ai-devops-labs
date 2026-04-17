@@ -1,0 +1,28 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	guardrail(guardrail)
+	planner(planner)
+	tool_executor(tool_executor)
+	rollback_specialist(rollback_specialist)
+	postmortem_specialist(postmortem_specialist)
+	responder(responder)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> guardrail;
+	guardrail -.-> planner;
+	guardrail -.-> responder;
+	planner -.-> postmortem_specialist;
+	planner -.-> responder;
+	planner -.-> rollback_specialist;
+	planner -.-> tool_executor;
+	postmortem_specialist --> responder;
+	rollback_specialist --> responder;
+	tool_executor --> planner;
+	responder --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
