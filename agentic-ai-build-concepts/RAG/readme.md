@@ -18,6 +18,8 @@ RAG is one of the most practical skills in agent engineering because many useful
 - prompt assembly
 - grounded answer generation
 
+### RAG = AI MODEL + EXTERNAL DATA SOURCE
+
 ## When I Would Use It
 
 - Document Search: when answers must be based on documents

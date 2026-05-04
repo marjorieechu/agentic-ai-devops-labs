@@ -1,4 +1,4 @@
-# Agentic AI Projects
+# DevOps Agentic AI Projects
 
 The repo serves as proof-of-work space for agentic AI.
 
