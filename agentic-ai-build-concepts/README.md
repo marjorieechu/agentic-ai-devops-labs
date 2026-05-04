@@ -1,4 +1,4 @@
-# Skills
+# Concept
 
 This folder documents the frameworks, protocols, and patterns I am learning as I progress through agentic AI engineering.
 
@@ -9,7 +9,7 @@ The goal is not to collect random notes. It is to build a reusable reference lib
 - how it compares to other options
 - how it can support real projects
 
-## Current Skill Areas
+## Current Concepts
 
 - AutoGen
 - CrewAI

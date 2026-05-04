@@ -56,3 +56,15 @@ In real projects, MCP can make an agent easier to extend because tools and conte
 
 - MCP architecture overview: https://modelcontextprotocol.io/docs/learn/architecture
 - MCP specification overview: https://modelcontextprotocol.io/specification/2025-06-18/basic/index
+
+### Before MCP
+Each service needs its own integration
+Different formats and authentication
+Hard for AI to understand dynamically
+Difficult to scale across services
+
+### After MCP
+One MCP connection for everything
+Standardized access for all tools
+AI discovers tools automatically
+MCP server handles underlying service

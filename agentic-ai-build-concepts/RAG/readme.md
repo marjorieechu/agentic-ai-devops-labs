@@ -20,10 +20,10 @@ RAG is one of the most practical skills in agent engineering because many useful
 
 ## When I Would Use It
 
-- when answers must be based on documents
-- when data changes often
-- when I need citations or evidence
-- when building internal assistants or knowledge tools
+- Document Search: when answers must be based on documents
+- Customer Support: when data changes often
+- Company chatbot: when I need citations or evidence
+- AI Assistant: when building internal assistants or knowledge tools
 
 ## Common Mistakes
 
